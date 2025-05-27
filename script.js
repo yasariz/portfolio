@@ -1,92 +1,138 @@
 // Typing effect variables and function
-const text = "Hello World, I'm Gustav";
+let text = "Hello World, I'm Gustav👋"; // default
+let showSubtitleAndButton = true;       // default: show subtitle and button
+
+if (window.location.pathname.includes("about.html")) {
+  text = "About Me";
+  showSubtitleAndButton = false;  // on about.html, hide subtitle and button
+}
+
 const typedEl = document.getElementById("typed");
 const subtitle = document.getElementById("subtitle");
 const button = document.getElementById("button");
+const description = document.querySelector(".about-description"); // fade target
+const coverPhoto = document.querySelector(".cover-photo");        // new fade target
 let i = 0;
 
 function type() {
+  const cursor = typedEl.querySelector('.cursor');
   if (i < text.length) {
-    typedEl.textContent += text.charAt(i);
+    const charSpan = document.createTextNode(text.charAt(i));
+    typedEl.insertBefore(charSpan, cursor);
     i++;
     setTimeout(type, 100);
   } else {
-    setTimeout(() => {
-      subtitle.classList.add("fade-in-visible");
+    if (showSubtitleAndButton && subtitle && button) {
       setTimeout(() => {
-        button.classList.add("fade-in-visible");
-      }, 600);
-    }, 300);
+        subtitle.classList.add("fade-in-visible");
+        setTimeout(() => {
+          button.classList.add("fade-in-visible");
+        }, 600);
+      }, 300);
+    } else {
+      if (subtitle) subtitle.style.display = "none";
+      if (button) button.style.display = "none";
+
+      // Fade in description and cover photo
+      if (description) {
+        setTimeout(() => {
+          description.classList.add("fade-in-visible");
+        }, 400);
+      }
+      if (coverPhoto) {
+        setTimeout(() => {
+          coverPhoto.classList.add("fade-in-visible");
+        }, 400);
+      }
+    }
   }
 }
 
 // Rain of dots background (no mouse interaction)
 const canvas = document.getElementById('dots-canvas');
-const ctx = canvas.getContext('2d');
+if (canvas) {
+  const ctx = canvas.getContext('2d');
 
-let width, height;
-function resize() {
-  width = window.innerWidth;
-  height = window.innerHeight;
-  canvas.width = width;
-  canvas.height = height;
-}
-resize();
-window.addEventListener('resize', resize);
+  let width, height;
+  function resize() {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+  }
+  resize();
+  window.addEventListener('resize', resize);
 
-class Dot {
-  constructor() {
-    this.reset();
+  class Dot {
+    constructor() {
+      this.reset();
+    }
+
+    reset() {
+      this.x = Math.random() * width;
+      this.y = Math.random() * height;
+      this.radius = 2 + Math.random() * 3;
+      this.speedY = 0.5 + Math.random() * 1.5;
+      this.color = 'rgba(255, 255, 255, 0.7)';
+    }
+
+    update() {
+      this.y += this.speedY;
+      if (this.y > height) this.reset();
+    }
+
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+      ctx.fillStyle = this.color;
+      ctx.fill();
+    }
   }
 
-  reset() {
-    this.x = Math.random() * width;
-    this.y = Math.random() * height;
-    this.radius = 2 + Math.random() * 3;
-    this.speedY = 0.5 + Math.random() * 1.5;
-    this.color = 'rgba(255, 255, 255, 0.7)';
+  const dots = [];
+  const DOT_COUNT = 150;
+  for (let i = 0; i < DOT_COUNT; i++) {
+    dots.push(new Dot());
   }
 
-  update() {
-    this.y += this.speedY;
-    if (this.y > height) this.reset();
+  function animate() {
+    ctx.clearRect(0, 0, width, height);
+    dots.forEach(dot => {
+      dot.update();
+      dot.draw();
+    });
+    requestAnimationFrame(animate);
   }
 
-  draw() {
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-    ctx.fillStyle = this.color;
-    ctx.fill();
-  }
-}
+  window.addEventListener("DOMContentLoaded", () => {
+    // Prepare subtitle and button
+    if (subtitle && button) {
+      subtitle.classList.add("fade-in-hidden");
+      button.classList.add("fade-in-hidden");
+      subtitle.offsetHeight;
+      button.offsetHeight;
+    }
 
-const dots = [];
-const DOT_COUNT = 150;
-for (let i = 0; i < DOT_COUNT; i++) {
-  dots.push(new Dot());
-}
+    // Prepare description and image
+    if (description) {
+      description.classList.add("fade-in-hidden");
+      description.offsetHeight;
+    }
+    if (coverPhoto) {
+      coverPhoto.classList.add("fade-in-hidden");
+      coverPhoto.offsetHeight;
+    }
 
-function animate() {
-  ctx.clearRect(0, 0, width, height);
-  dots.forEach(dot => {
-    dot.update();
-    dot.draw();
+    // Clear previous typed text except cursor
+    if (typedEl) {
+      const cursor = typedEl.querySelector('.cursor');
+      [...typedEl.childNodes].forEach(node => {
+        if (node !== cursor) typedEl.removeChild(node);
+      });
+    }
+
+    // Start typing + background
+    setTimeout(type, 50);
+    animate();
   });
-  requestAnimationFrame(animate);
 }
-
-// On DOM loaded, initialize fade states and start typing + animation
-window.addEventListener("DOMContentLoaded", () => {
-  subtitle.classList.add("fade-in-hidden");
-  button.classList.add("fade-in-hidden");
-
-  // Force reflow so opacity 0 applies
-  subtitle.offsetHeight;
-  button.offsetHeight;
-
-  // Start typing effect after short delay
-  setTimeout(type, 50);
-
-  // Start canvas animation
-  animate();
-});

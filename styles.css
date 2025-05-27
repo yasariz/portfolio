@@ -33,6 +33,9 @@ body {
   background: transparent; /* or use a color if you want */
 }
 
+
+/* HOME SECTION */
+
 /* Header Styles */
 .site-header {
     font-weight: bold;
@@ -75,18 +78,17 @@ body {
   font-family: monospace;
 }
 
-.typed-text {
-  white-space: nowrap;
-  overflow: hidden;
-}
-
 .cursor {
   display: inline-block;
-  width: 2px;
+  width: 0.06em;
+  height: 1.7em;
   background-color: #f8f8f8;
-  margin-left: 4px;
+  margin-left: 0.2em;
   animation: blink 0.7s steps(1) infinite;
+  vertical-align: bottom;
 }
+
+
 
 @keyframes blink {
   50% {
@@ -137,26 +139,52 @@ body {
     bottom: 10px;
     right: 20px;
     font-size: 25px;
+    transition: transform 0.2s ease, opacity 0.3s ease;
 }
 
 .socials a i {
     color: white;
+
 }
 
-.linkedin {
+.linkedin, .github {
     opacity: 0.8;
     transition: opacity 0.3s ease;
 }
 
-.github {
-    opacity: 0.8;
-    transition: opacity 0.3s ease;
-}
-
-.linkedin:hover {
+.linkedin:hover, .github:hover {
     opacity: 1;
 }
 
-.github:hover {
-    opacity: 1;
+/* ABOUT SECTION */
+.about-container {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+  padding: 40px;
+  max-width: 1000px;
+  margin: 0 auto;
+  margin-top: 200px;
 }
+
+.cover-photo {
+  max-width: 300px;
+  height: auto;
+  border-radius: 100%;
+}
+
+.text-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.about-description {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #ccc; /* Adjust based on your theme */
+}
+
+
+
+

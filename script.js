@@ -2,9 +2,10 @@
 let text = "Hello World, I'm Gustav👋"; // default
 let showSubtitleAndButton = true;       // default: show subtitle and button
 
-if (window.location.pathname.includes("about.html")) {
+const path = window.location.pathname;
+if (path.includes("about.html") || path.includes("/about")) {
   text = "About Me";
-  showSubtitleAndButton = false;  // on about.html, hide subtitle and button
+  showSubtitleAndButton = false;
 }
 
 const typedEl = document.getElementById("typed");

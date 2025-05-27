@@ -20,7 +20,7 @@ function type() {
   }
 }
 
-// Rain of dots background variables and classes
+// Rain of dots background (no mouse interaction)
 const canvas = document.getElementById('dots-canvas');
 const ctx = canvas.getContext('2d');
 
@@ -38,40 +38,25 @@ class Dot {
   constructor() {
     this.reset();
   }
-  
+
   reset() {
     this.x = Math.random() * width;
     this.y = Math.random() * height;
     this.radius = 2 + Math.random() * 3;
     this.speedY = 0.5 + Math.random() * 1.5;
-    this.speedX = 0;
     this.color = 'rgba(255, 255, 255, 0.7)';
-    this.shakeTime = 0;
   }
-  
+
   update() {
-    if (this.shakeTime > 0) {
-      this.x += this.speedX;
-      this.y += this.speedY * 3; // speed up falling when shaking
-      this.shakeTime--;
-    } else {
-      this.y += this.speedY;
-    }
+    this.y += this.speedY;
     if (this.y > height) this.reset();
-    if (this.x > width) this.x = 0;
-    if (this.x < 0) this.x = width;
   }
-  
+
   draw() {
     ctx.beginPath();
-    ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2);
+    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
     ctx.fillStyle = this.color;
     ctx.fill();
-  }
-  
-  shake() {
-    this.speedX = (Math.random() - 0.5) * 5;
-    this.shakeTime = 20;
   }
 }
 
@@ -80,11 +65,6 @@ const DOT_COUNT = 150;
 for (let i = 0; i < DOT_COUNT; i++) {
   dots.push(new Dot());
 }
-
-// Detect shake by tracking mouse movement speed
-let lastMouseX = null;
-let lastMouseY = null;
-let lastMoveTime = 0;
 
 function animate() {
   ctx.clearRect(0, 0, width, height);

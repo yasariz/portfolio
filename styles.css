@@ -38,7 +38,7 @@ body {
     font-weight: bold;
 }
 
-.site-header div {
+.site-header a {
     margin: 20px;
 }
 
@@ -49,12 +49,18 @@ body {
     font-size: 1rem;
 }
 
-.site-header-nav div {
+.site-header-nav a {
     transition: transform 0.2s ease;
+    text-decoration: none;
+    color: #f8f8f8
 }
 
-.site-header-nav div:hover {
+.site-header-nav a:hover {
     transform: translateY(-3px);
+}
+
+.site-header-nav a:active {
+    transform: translateY(-5px);
 }
 
 /* Presentation Styles */
@@ -105,7 +111,7 @@ body {
   /* keep your existing styles */
   margin-top: 2rem;
   padding: 0.75rem 1.5rem;
-  background-color: #383f4a;
+  background-color: #272c32;
   color: #fff;
   font-size: 1rem;
   font-weight: 600;
@@ -117,10 +123,40 @@ body {
 
 
 .presentation-button:hover {
-  background-color: #2d343e;
+  background-color: #1e2328;
   transform: translateY(-3px);
 }
 
 .presentation-button:active {
   transform: translateY(0);
+}
+
+/* Socials */
+.socials {
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+    font-size: 25px;
+}
+
+.socials a i {
+    color: white;
+}
+
+.linkedin {
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.github {
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.linkedin:hover {
+    opacity: 1;
+}
+
+.github:hover {
+    opacity: 1;
 }

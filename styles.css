@@ -3,23 +3,24 @@ html {
   box-sizing: border-box;
   font-size: 100%; /* Makes rem units predictable */
   scroll-behavior: smooth; /* Smooth scrolling when navigating */
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: monospace;
+  background-color: #111;
+  color: #f8f8f8;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 /* Inherit box-sizing for all elements */
 *, *::before, *::after {
   box-sizing: inherit;
-}
-
-/* Base styles for body */
-body {
-  margin: 0;
-  padding: 0;
-  font-family: monospace;
-  background-color: #111; /* Or transparent if you want */
-  color: #f8f8f8; /* Base text color */
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 #dots-canvas {
@@ -28,54 +29,56 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  pointer-events: none; /* allows clicks to pass through */
-  z-index: -1; /* ensures it stays behind everything */
-  background: transparent; /* or use a color if you want */
+  pointer-events: none;
+  z-index: -1;
+  background: transparent;
 }
 
 
-/* HOME SECTION */
+/* HEADER */
 
-/* Header Styles */
 .site-header {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .site-header a {
-    margin: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .site-header-nav {
-    display: flex;
-    justify-content: center;
-    margin: 10px;
-    font-size: 1rem;
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+  font-size: 1rem;
 }
 
 a {
-    transition: transform 0.2s ease;
-    text-decoration: none;
-    color: #f8f8f8;
+  transition: transform 0.2s ease;
+  text-decoration: none;
+  color: #f8f8f8;
 }
 
 .site-header-nav a:hover {
-    transform: translateY(-3px);
+  transform: translateY(-3px);
 }
 
 .site-header-nav a:active {
-    transform: translateY(-5px);
+  transform: translateY(-5px);
 }
 
-/* Presentation Styles */
+
+/* PRESENTATION */
+
 .presentation {
   text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: calc(100vh - 80px); /* Adjust header height as needed */
+  height: calc(100vh - 80px);
+  gap: 2rem;
 }
-
 
 .typewriter-container {
   display: inline-flex;
@@ -100,7 +103,7 @@ a {
 }
 
 #subtitle {
-    font-size: 1.5rem;
+  font-size: 1.5rem;
 }
 
 .fade-in-hidden {
@@ -113,8 +116,6 @@ a {
 }
 
 .presentation-button {
-  /* keep your existing styles */
-  margin-top: 2rem;
   padding: 0.75rem 1.5rem;
   background-color: #272c32;
   color: #fff;
@@ -123,7 +124,7 @@ a {
   border: none;
   border-radius: 3px;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease, opacity 1.5s ease-in; /* ADD opacity transition here */
+  transition: background-color 0.3s ease, transform 0.2s ease, opacity 1.5s ease-in;
 }
 
 .presentation-button:hover {
@@ -135,29 +136,33 @@ a {
   transform: translateY(0);
 }
 
-/* Socials */
+
+/* SOCIALS */
+
 .socials {
-    position: absolute;
-    bottom: 10px;
-    right: 20px;
-    font-size: 25px;
-    transition: transform 0.2s ease, opacity 0.3s ease;
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+  font-size: 25px;
+  transition: transform 0.2s ease, opacity 0.3s ease;
 }
 
 .socials a i {
-    color: white;
+  color: white;
 }
 
 .linkedin, .github {
-    opacity: 0.8;
-    transition: opacity 0.3s ease;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
 }
 
 .linkedin:hover, .github:hover {
-    opacity: 1;
+  opacity: 1;
 }
 
+
 /* ABOUT SECTION */
+
 .about-container {
   display: flex;
   align-items: center;
@@ -184,7 +189,7 @@ a {
 .about-description {
   font-size: 0.9rem;
   line-height: 1.6;
-  color: #ccc; /* Adjust based on your theme */
+  color: #ccc;
 }
 
 
@@ -218,15 +223,12 @@ a {
 
 @keyframes typing {
   from { width: 0 }
-  to { width: 8ch } /* "Projects" is 8 characters */
-}
-
-@keyframes blink {
-  50% { opacity: 0 }
+  to { width: 8ch }
 }
 
 
-/* Project Boxes */
+/* PROJECT BOXES */
+
 .projects {
   max-width: 1000px;
   margin: 100px auto;
@@ -249,11 +251,10 @@ a {
   transform: translateY(-5px);
 }
 
-/* Image link fills left side and is fully clickable */
 .image-link {
-  position: relative;  
+  position: relative;
   display: block;
-  flex: 0 0 200px; /* fixed width */
+  flex: 0 0 200px;
   height: 100%;
   cursor: pointer;
   overflow: hidden;
@@ -264,30 +265,21 @@ a {
   width: 100%;
   height: 100%;
   object-fit: fill;
-  border-radius: 12px 0 0 12px; /* rounded corners on left */
+  border-radius: 12px 0 0 12px;
 }
 
-/* Redirect icon in top right corner */
 .redirect-icon {
   position: absolute;
-  top: 8px;
+  bottom: 8px;
   right: 8px;
-  background-color: rgba(40, 40, 40, 0.7);
   color: #f8f8f8;
   font-size: 1.5rem;
-  padding: 4px 7px;
   border-radius: 4px;
-  pointer-events: none; /* clicks pass through */
+  pointer-events: none;
   user-select: none;
   transition: background-color 0.3s ease;
 }
 
-.image-link:hover .redirect-icon {
-  background-color: rgba(255, 255, 255, 0.9);
-  color: #111;
-}
-
-/* The project info fills the remaining space */
 .project-info {
   flex: 1;
   padding-left: 20px;
@@ -308,7 +300,9 @@ a {
   font-size: 1rem;
 }
 
-/* Slide-in animations */
+
+/* SLIDE-IN ANIMATIONS */
+
 @keyframes slideInLeft {
   0% {
     opacity: 0;
@@ -331,14 +325,12 @@ a {
   }
 }
 
-/* Initial hidden state */
 .slide-in-left,
 .slide-in-right {
   opacity: 0;
-  transform: translateX(0); /* so it doesn’t shift unexpectedly before animating */
+  transform: translateX(0);
 }
 
-/* Active animation when in view */
 .animate-left {
   animation: slideInLeft 0.8s ease-out forwards;
 }

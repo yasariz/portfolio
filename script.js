@@ -137,3 +137,25 @@ if (canvas) {
     animate();
   });
 }
+
+// Projects Slide in Animation
+document.addEventListener('DOMContentLoaded', () => {
+  const leftBoxes = document.querySelectorAll('.slide-in-left');
+  const rightBoxes = document.querySelectorAll('.slide-in-right');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        if (entry.target.classList.contains('slide-in-left')) {
+          entry.target.classList.add('animate-left');
+        } else if (entry.target.classList.contains('slide-in-right')) {
+          entry.target.classList.add('animate-right');
+        }
+        observer.unobserve(entry.target); // optional: animate only once
+      }
+    });
+  }, { threshold: 0.2 });
+
+  leftBoxes.forEach(box => observer.observe(box));
+  rightBoxes.forEach(box => observer.observe(box));
+});
